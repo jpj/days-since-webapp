@@ -3,11 +3,41 @@
 	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.solairis.dayssince</groupId>
-	<artifactId>dayssince-webapp</artifactId>
+	<artifactId>days-since-webapp</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>Days Since Web Application</name>
 	<url>http://solairis.com</url>
+
+	<developers>
+		<developer>
+			<name>Joshua P Johnson</name>
+			<email>joshpauljohnson@gmail.com</email>
+			<organization>Solairis</organization>
+			<organizationUrl>http://solairis.com</organizationUrl>
+			<timezone>-5</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:ssh://git@github.com/jpj/${artifactId}.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/jpj/${artifactId}.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>solairis-local-releases</id>
+			<url>http://solairis.com:8182/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>solairis-local-snapshots</id>
+			<name>Solairis Snapshots</name>
+			<url>http://solairis.com:8182/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
