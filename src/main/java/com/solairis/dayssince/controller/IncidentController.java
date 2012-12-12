@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -25,6 +26,7 @@ public class IncidentController {
 	private IncidentRepository incidentRepository;
 
 	@RequestMapping(method= RequestMethod.GET)
+	@ResponseBody
 	public List<Incident> list() {
 		List<Incident> incidents = new ArrayList<Incident>();
 		for (Incident incident : this.incidentRepository.findAll()) {

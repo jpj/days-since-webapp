@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+">
 
+
+	<context:component-scan base-package="com.solairis.dayssince.controller"/>
+
+	<mongo:repositories base-package="com.solairis.incident.repository"/>
 
 	<!-- TODO create conversion  -->
 
 	<!--<mvc:annotation-driven conversion-service="conversionService"/>-->
 
-<!--	<bean class="org.springframework.data.repository.support.DomainClassConverter">
+	<!--	<bean class="org.springframework.data.repository.support.DomainClassConverter">
 		<constructor-arg ref="conversionService"/>
 	</bean>-->
 
