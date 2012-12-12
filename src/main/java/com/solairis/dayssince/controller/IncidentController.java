@@ -6,9 +6,8 @@ package com.solairis.dayssince.controller;
 
 import com.solairis.incident.entity.Incident;
 import com.solairis.incident.repository.IncidentRepository;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.Resource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,17 +25,13 @@ public class IncidentController {
 	@Resource
 	private IncidentRepository incidentRepository;
 
-	@RequestMapping(method= RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<Incident> list() {
-		List<Incident> incidents = new ArrayList<Incident>();
-		for (Incident incident : this.incidentRepository.findAll()) {
-			incidents.add(incident);
-		}
-		return incidents;
+	public Iterable<Incident> list(Pageable pageable) {
+		return this.incidentRepository.findAll(pageable);
 	}
 
-	@RequestMapping(value="/{id}", method= RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Incident get(@PathVariable("id") Incident incident) {
 		return incident;
