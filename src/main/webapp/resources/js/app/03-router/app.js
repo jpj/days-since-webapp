@@ -2,7 +2,7 @@ DaysSince.Router.App = Backbone.Router.extend({
 
 	routes: {
 		"": "home",
-		"incident/:id": "getIncident"
+		"app/incident/:id": "getIncident"
 	},
 
 	initialize: function() {

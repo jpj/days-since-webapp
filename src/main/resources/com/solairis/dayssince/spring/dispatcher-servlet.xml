@@ -31,8 +31,11 @@
 		<constructor-arg ref="conversionService"/>
 	</bean>
 
-	<mvc:view-controller path="/" view-name="app"/>
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
+
+	<!-- Catch Remaining Requests -->
+	<mvc:view-controller path="/" view-name="app"/>
+	<mvc:view-controller path="/app/**" view-name="app"/>
 
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
