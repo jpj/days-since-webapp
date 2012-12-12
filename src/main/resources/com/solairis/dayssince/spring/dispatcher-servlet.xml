@@ -14,8 +14,8 @@
 
 
 	<context:component-scan base-package="com.solairis.dayssince.controller"/>
-
 	<mongo:repositories base-package="com.solairis.incident.repository"/>
+	<mvc:annotation-driven/>
 
 	<!-- TODO create conversion  -->
 
