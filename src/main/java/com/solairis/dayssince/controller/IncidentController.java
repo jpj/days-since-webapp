@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,5 +34,11 @@ public class IncidentController {
 			incidents.add(incident);
 		}
 		return incidents;
+	}
+
+	@RequestMapping(value="/{id}", method= RequestMethod.GET)
+	@ResponseBody
+	public Incident get(@PathVariable("id") Incident incident) {
+		return incident;
 	}
 }
