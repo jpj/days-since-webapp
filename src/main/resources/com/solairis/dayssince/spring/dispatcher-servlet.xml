@@ -15,7 +15,7 @@
 
 	<context:component-scan base-package="com.solairis.dayssince.controller"/>
 	<mongo:repositories base-package="com.solairis.incident"/>
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven conversion-service="conversionService"/>
 
 	<!-- TODO create conversion  -->
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -23,8 +23,6 @@
 			<bean class="com.solairis.dayssince.converter.IncidentConverter"/>
 		</property>
 	</bean>
-
-	<mvc:annotation-driven conversion-service="conversionService"/>
 
 	<bean class="org.springframework.data.repository.support.DomainClassConverter">
 		<constructor-arg ref="conversionService"/>
