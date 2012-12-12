@@ -6,6 +6,8 @@ package com.solairis.dayssince.controller;
 
 import com.solairis.incident.entity.Incident;
 import com.solairis.incident.repository.IncidentRepository;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -27,8 +29,8 @@ public class IncidentController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Iterable<Incident> list(Pageable pageable) {
-		return this.incidentRepository.findAll(pageable);
+	public List<Incident> list(Pageable pageable) {
+		return this.incidentRepository.findAll(pageable).getContent();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
