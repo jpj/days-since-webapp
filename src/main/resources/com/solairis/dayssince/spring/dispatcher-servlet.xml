@@ -7,7 +7,7 @@
 	xmlns="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
 ">
@@ -15,7 +15,11 @@
 
 	<context:component-scan base-package="com.solairis.dayssince.controller"/>
 	<mongo:repositories base-package="com.solairis.incident"/>
-	<mvc:annotation-driven conversion-service="conversionService"/>
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:argument-resolvers>
+			<bean class="org.springframework.data.web.PageableArgumentResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
 	<!-- TODO create conversion  -->
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -26,14 +30,6 @@
 
 	<bean class="org.springframework.data.repository.support.DomainClassConverter">
 		<constructor-arg ref="conversionService"/>
-	</bean>
-
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="customArgumentResolvers">
-			<list>
-				<bean class="org.springframework.data.web.PageableArgumentResolver" />
-			</list>
-		</property>
 	</bean>
 
 </beans>
