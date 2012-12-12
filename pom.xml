@@ -41,9 +41,19 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.solairis.incident</groupId>
+			<artifactId>incident-api</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons-core</artifactId>
 			<version>1.4.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.1.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
