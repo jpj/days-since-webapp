@@ -21,7 +21,6 @@
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
-	<!-- TODO create conversion  -->
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<bean class="com.solairis.dayssince.converter.IncidentConverter"/>
@@ -32,4 +31,30 @@
 		<constructor-arg ref="conversionService"/>
 	</bean>
 
+	<mvc:view-controller path="/" view-name="app"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
+
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
+		<property name="configLocation" value="/jawr.properties"/>
+	</bean>
+
+	<bean id="jawrJsController" parent="jawrBase"/>
+	<bean id="jawrCssController" parent="jawrBase">
+		<property name="type" value="css"/>
+	</bean>
+
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/**/*.js">jawrJsController</prop>
+				<prop key="/**/*.css">jawrCssController</prop>
+			</props>
+		</property>
+	</bean>
 </beans>
