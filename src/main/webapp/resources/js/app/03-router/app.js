@@ -16,7 +16,11 @@ DaysSince.Router.App = Backbone.Router.extend({
 		this.views.home.collection.fetch();
 	},
 	getIncident: function(id) {
-		this.views.incident.model.set({id: id}, {silent: true});
-		this.views.incident.model.fetch();
+		if (this.views.incident.model.get("id") == id) {
+			this.views.incident.render();
+		} else {
+			this.views.incident.model.set({id: id}, {silent: true});
+			this.views.incident.model.fetch();
+		}
 	}
 });
