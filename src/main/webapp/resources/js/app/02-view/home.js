@@ -5,7 +5,7 @@
 
 DaysSince.View.Home = Backbone.View.extend({
 	events: {
-		"click #home .incident": "getIncident"
+		"click #home .incident a": "getIncident"
 	},
 
 	initialize: function() {
@@ -22,13 +22,14 @@ DaysSince.View.Home = Backbone.View.extend({
 				id: model.get("id")
 			}));
 		}, this);
-		window.app.navigate('/');
 		return this;
 	},
 
 	getIncident: function(e) {
-		var $inc = $(e.currentTarget);
+		e.preventDefault();
+		var $inc = $(e.currentTarget).parent();
 		window.app.views.incident.model.set({id: $inc.data("id")}, {silent: true});
 		window.app.views.incident.model.fetch();
+		window.app.navigate('/app/incident/'+$inc.data("id"));
 	}
 });

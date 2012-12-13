@@ -36,11 +36,11 @@ and open the template in the editor.
 		</script>
 
 		<script type="text/template" id="incident-preview-template">
-			<li data-id="{{id}}" class="incident">{{daysSince}} Days Since {{label}}</li>
+			<li data-id="{{id}}" class="incident">{{daysSince}} Days Since <a href="app/incident/{{id}}">{{label}}</a></li>
 		</script>
 
 		<script type="text/template" id="incident-template">
-			<div class="incident">
+			<div id="incident">
 				<div class="back"><a href="../../">Back to Incidents</a></div>
 				<div class="incident">{{daysSince}} Days Since {{label}}</div>
 			</div>
