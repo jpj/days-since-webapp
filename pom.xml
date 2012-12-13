@@ -44,41 +44,49 @@
 			<groupId>com.solairis.incident</groupId>
 			<artifactId>incident-api</artifactId>
 			<version>1.0.7</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons-core</artifactId>
 			<version>1.4.0.RELEASE</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>1.1.1.RELEASE</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>3.1.1.RELEASE</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
 			<version>1.9.11</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.4</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.jawr</groupId>
 			<artifactId>jawr</artifactId>
 			<version>3.5</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.yahoo.platform.yui</groupId>
 			<artifactId>yuicompressor</artifactId>
 			<version>2.4.6</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Test Dependencies -->
