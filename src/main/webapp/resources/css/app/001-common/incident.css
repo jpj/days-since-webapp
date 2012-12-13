@@ -10,3 +10,9 @@
 	font-size: 80pt;
 	line-height: normal;
 }
+
+#incident .back {
+	position: absolute;
+	top: 0;
+	left: 0;
+}

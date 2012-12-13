@@ -49,8 +49,8 @@ and open the template in the editor.
 
 		<script type="text/template" id="incident-template">
 			<div id="incident">
+				<h1 class="incident">{{daysSince}} Days Since {{label}}</h1>
 				<div class="back"><a href="../../">Back to Incidents</a></div>
-				<div class="incident">{{daysSince}} Days Since {{label}}</div>
 			</div>
 		</script>
 </body>
