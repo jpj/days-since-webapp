@@ -5,7 +5,8 @@
 
 DaysSince.View.Home = Backbone.View.extend({
 	events: {
-		"click #home .incident a": "getIncident"
+		"click #home .incident a": "getIncident",
+		"submit #home form": "newIncident"
 	},
 
 	initialize: function() {
@@ -31,5 +32,19 @@ DaysSince.View.Home = Backbone.View.extend({
 		window.app.views.incident.model.set({id: $inc.data("id")}, {silent: true});
 		window.app.views.incident.model.fetch();
 		window.app.navigate('/app/incident/'+$inc.data("id"));
+	},
+
+	newIncident: function(e) {
+		e.preventDefault();
+		var $form = $(e.currentTarget);
+		var incident = new DaysSince.Model.Incident();
+		incident.set({startDate: new Date(), label: $form.find("input[name=label]").val()});
+		incident.save(null, {
+			success: function() {
+				window.app.views.incident.model.set({id: incident.get("id")}, {silent: true});
+				window.app.views.incident.model.fetch();
+				window.app.navigate('/app/incident/'+incident.get("id"));
+			}
+		});
 	}
 });

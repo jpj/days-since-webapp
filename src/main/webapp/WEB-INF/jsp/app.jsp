@@ -30,6 +30,14 @@ and open the template in the editor.
 		<script type="text/html" id="home-template">
 			<div id="home">
 				<h2>Most Recent Incidents</h2>
+				<div>
+					<form>
+						<div>
+							<input type="text" name="label"/>
+							<input type="submit" value="New Incident"/>
+						</div>
+					</form>
+				</div>
 				<ul>
 				</ul>
 			</div>
