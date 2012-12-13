@@ -6,12 +6,17 @@ DaysSince.Router.App = Backbone.Router.extend({
 	},
 
 	initialize: function() {
+		this.views = {
+			home: new DaysSince.View.Home({el: $("body"), collection: new DaysSince.Collection.Incident()}),
+			incident: new DaysSince.View.Incident({el: $("body"), model: new DaysSince.Model.Incident()})
+		}
 	},
 
 	home: function() {
-		alert("Home");
+		this.views.home.collection.fetch();
 	},
 	getIncident: function(id) {
-		alert("Calling "+id);
+		this.views.incident.model.set({id: id}, {silent: true});
+		this.views.incident.model.fetch();
 	}
 });

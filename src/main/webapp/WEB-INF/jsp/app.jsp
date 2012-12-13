@@ -19,8 +19,8 @@ and open the template in the editor.
 
 			$(function() {
 				// Start routing
-				var app = new DaysSince.Router.App();
-				Backbone.history.start({pushState: true, root: '/days-since-webapp/'});
+				window.app = new DaysSince.Router.App();
+				Backbone.history.start({pushState: true, root: DaysSince.Constant.URL_ROOT+'/'});
 			});
 		</script>
 	</head>
