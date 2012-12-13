@@ -26,5 +26,24 @@ and open the template in the editor.
 	</head>
 	<body>
 		<div>TODO write content</div>
-	</body>
+
+		<script type="text/html" id="home-template">
+			<div id="home">
+				<h2>Most Recent Incidents</h2>
+				<ul>
+				</ul>
+			</div>
+		</script>
+
+		<script type="text/template" id="incident-preview-template">
+			<li data-id="{{id}}" class="incident">{{daysSince}} Days Since {{label}}</li>
+		</script>
+
+		<script type="text/template" id="incident-template">
+			<div class="incident">
+				<div class="back"><a href="../../">Back to Incidents</a></div>
+				<div class="incident">{{daysSince}} Days Since {{label}}</div>
+			</div>
+		</script>
+</body>
 </html>

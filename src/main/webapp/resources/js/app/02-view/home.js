@@ -5,7 +5,7 @@
 
 DaysSince.View.Home = Backbone.View.extend({
 	events: {
-		"click .incident": "getIncident"
+		"click #home .incident": "getIncident"
 	},
 
 	initialize: function() {
@@ -14,16 +14,21 @@ DaysSince.View.Home = Backbone.View.extend({
 	},
 
 	render: function() {
-		this.$el.empty();
+		this.$el.html(DaysSince.Template["home-template"]);
 		this.collection.each(function(model) {
-			this.$el.append('<div class="incident">'+model.get("id")+'</div>');
+			this.$("#home ul").append(DaysSince.Util.templateRender(DaysSince.Template["incident-preview-template"], {
+				daysSince: ((new Date().getTime() - model.get("startDate")) / 1000 / 60 / 60 / 24).toFixed(3),
+				label: model.get("label"),
+				id: model.get("id")
+			}));
 		}, this);
+		window.app.navigate('/');
 		return this;
 	},
 
 	getIncident: function(e) {
 		var $inc = $(e.currentTarget);
-		window.app.views.incident.model.set({id: $inc.text()}, {silent: true});
+		window.app.views.incident.model.set({id: $inc.data("id")}, {silent: true});
 		window.app.views.incident.model.fetch();
 	}
 });
