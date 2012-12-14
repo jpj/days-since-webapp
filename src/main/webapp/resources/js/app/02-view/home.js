@@ -15,6 +15,7 @@ DaysSince.View.Home = Backbone.View.extend({
 	},
 
 	render: function() {
+		document.title = 'List of Incidents | '+DaysSince.Constant.SITE_TITLE;
 		this.$el.html(DaysSince.Template["home-template"]);
 		this.collection.each(function(model) {
 			this.$("#home ul").append(DaysSince.Util.templateRender(DaysSince.Template["incident-preview-template"], {
