@@ -1,0 +1,18 @@
+/*
+    Document   : incident
+    Created on : Dec 12, 2012, 7:47:14 PM
+    Author     : josh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#incident .incident {
+	font-size: 80pt;
+	line-height: normal;
+}
+
+#incident .back {
+	position: absolute;
+	top: 0;
+	left: 0;
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+">
+
+
+	<context:component-scan base-package="com.solairis.dayssince.controller"/>
+	<mongo:repositories base-package="com.solairis.incident"/>
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:argument-resolvers>
+			<bean class="org.springframework.data.web.PageableArgumentResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<bean class="com.solairis.dayssince.converter.IncidentConverter"/>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.data.repository.support.DomainClassConverter">
+		<constructor-arg ref="conversionService"/>
+	</bean>
+
+	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
+
+	<!-- Catch Remaining Requests -->
+	<mvc:view-controller path="/" view-name="app"/>
+	<mvc:view-controller path="/app/**" view-name="app"/>
+
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">
+		<property name="configLocation" value="/jawr.properties"/>
+	</bean>
+
+	<bean id="jawrJsController" parent="jawrBase"/>
+	<bean id="jawrCssController" parent="jawrBase">
+		<property name="type" value="css"/>
+	</bean>
+
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/**/*.js">jawrJsController</prop>
+				<prop key="/**/*.css">jawrCssController</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
