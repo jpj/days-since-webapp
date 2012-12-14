@@ -10,6 +10,8 @@ and open the template in the editor.
 	<head>
 		<title>Days Since is Loading...</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="viewport" content="width=device-width, height=device-height"/>
 
 		<jwr:script src="/resources/js/app.js"/>
 		<jwr:style src="/resources/css/app.css"/>
