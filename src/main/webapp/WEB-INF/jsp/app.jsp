@@ -8,7 +8,7 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Main App</title>
+		<title>Days Since is Loading...</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 		<jwr:script src="/resources/js/app.js"/>
@@ -25,7 +25,7 @@ and open the template in the editor.
 		</script>
 	</head>
 	<body>
-		<div>TODO write content</div>
+		<div>Loading...</div>
 
 		<script type="text/html" id="home-template">
 			<div id="home">
