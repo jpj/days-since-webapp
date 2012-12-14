@@ -23,8 +23,8 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:ssh://git@github.com/jpj/${artifactId}.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/jpj/${artifactId}.git</developerConnection>
+		<connection>scm:git:ssh://git@github.com/jpj/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/jpj/${project.artifactId}.git</developerConnection>
 	</scm>
 
 	<distributionManagement>
