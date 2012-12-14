@@ -1,4 +1,4 @@
-DaysSince.Constant.SITE_TITLE = "Your Car's Life";
+DaysSince.Constant.SITE_TITLE = "Days Since";
 DaysSince.Constant.URL_ROOT = '/days-since-webapp';
 
 DaysSince.Constant.Error = {};
