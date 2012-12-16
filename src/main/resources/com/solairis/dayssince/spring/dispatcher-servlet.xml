@@ -34,13 +34,15 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="604800"/>
 
 	<!-- Catch Remaining Requests -->
-	<mvc:view-controller path="/" view-name="app"/>
-	<mvc:view-controller path="/app/**" view-name="app"/>
+	<mvc:view-controller path="/" view-name="app.html"/>
 
-	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-		<property name="prefix" value="/WEB-INF/jsp/"/>
-		<property name="suffix" value=".jsp"/>
+	<bean id="mustacheViewResolver" class="org.springframework.web.servlet.view.mustache.MustacheViewResolver">
+		<property name="cache" value="false" />
+		<property name="prefix" value="/WEB-INF/mustache/" />
+		<property name="suffix" value=".html" />
+		<property name="templateLoader">
+			<bean class="org.springframework.web.servlet.view.mustache.MustacheTemplateLoader" />
+		</property>
 	</bean>
 
 	<bean id="jawrBase" abstract="true" class="net.jawr.web.servlet.JawrSpringController">

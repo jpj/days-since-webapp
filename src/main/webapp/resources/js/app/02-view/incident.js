@@ -17,7 +17,7 @@ DaysSince.View.Incident = Backbone.View.extend({
 		document.title = 'Days Since '+this.model.get("label");
 		this.$el.html(DaysSince.Util.templateRender(DaysSince.Template["incident-template"], {
 			daysSince: ((new Date().getTime() - this.model.get("startDate")) / 1000 / 60 / 60 / 24).toFixed(3),
-			label: this.model.get("label")
+			incident: this.model.toJSON()
 		}));
 		return this;
 	},
