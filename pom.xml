@@ -78,7 +78,7 @@
 		<dependency>
 			<groupId>net.jawr</groupId>
 			<artifactId>jawr</artifactId>
-			<version>3.5</version>
+			<version>3.3.3</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
