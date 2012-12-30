@@ -2,12 +2,16 @@
 <beans
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<mongo:mongo id="mongo">
 		<mongo:options connections-per-host="8"
@@ -29,5 +33,69 @@
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
 	</bean>
+
+	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+		<property name="connectionFactories">
+			<list>
+				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+					<constructor-arg value="501778863200129"/>
+					<constructor-arg value="ce17f2d5f35f3f6119cf1163122ae13e"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+	      factory-method="text">
+		<constructor-arg value="encPassTest" />
+		<constructor-arg value="7465737473616c74" />
+	</bean>
+
+	<bean id="connectionConverter" class="org.springframework.social.connect.mongo.ConnectionConverter">
+		<constructor-arg ref="connectionFactoryLocator"/>
+		<constructor-arg ref="textEncryptor"/>
+	</bean>
+
+	<bean id="connectionService" class="org.springframework.social.connect.mongo.MongoConnectionService">
+		<constructor-arg ref="mongoTemplate"/>
+		<constructor-arg ref="connectionConverter"/>
+	</bean>
+
+	<bean id="usersConnectionRepository" class="org.springframework.social.connect.mongo.MongoUsersConnectionRepository">
+		<constructor-arg ref="connectionService"/> <!-- MAKE THIS -->
+		<constructor-arg ref="connectionFactoryLocator"/>
+		<constructor-arg ref="textEncryptor"/>
+	</bean>
+
+	<bean id="connectionRepository" factory-method="createConnectionRepository"
+	      factory-bean="usersConnectionRepository" scope="request">
+		<constructor-arg value="#{request.userPrincipal.name}" />
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+
+	<!-- Security -->
+	<security:http pattern="/favicon.ico" security="none"/>
+	<security:http pattern="/resources/**" security="none"/>
+	<security:http pattern="/*/resources/**" security="none"/>
+
+	<security:http use-expressions="true" auto-config="true">
+		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
+		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
+		<!--<security:form-login login-page="/login" default-target-url='/' authentication-failure-url="/login?login_error=true"/>-->
+		<security:form-login/>
+		<security:anonymous/>
+		<security:http-basic/>
+	</security:http>
+
+	<security:user-service id="namePassUserService">
+		<security:user name="test" password="hoohoo" authorities="ROLE_USER"/>
+	</security:user-service>
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="namePassUserService">
+			<security:password-encoder hash="plaintext"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 </beans>

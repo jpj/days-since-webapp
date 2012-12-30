@@ -7,8 +7,8 @@ DaysSince.Router.App = Backbone.Router.extend({
 
 	initialize: function() {
 		this.views = {
-			home: new DaysSince.View.Home({el: $("body"), collection: new DaysSince.Collection.Incident()}),
-			incident: new DaysSince.View.Incident({el: $("body"), model: new DaysSince.Model.Incident(), incidentRendered: $("meta[name=incidentRendered]").attr("content") === 'true'})
+			home: new DaysSince.View.Home({el: $("#page"), collection: new DaysSince.Collection.Incident()}),
+			incident: new DaysSince.View.Incident({el: $("#page"), model: new DaysSince.Model.Incident(), incidentRendered: $("meta[name=incidentRendered]").attr("content") === 'true'})
 		}
 	},
 
