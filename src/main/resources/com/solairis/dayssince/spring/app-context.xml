@@ -46,9 +46,9 @@
 	</bean>
 
 	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
-	      factory-method="text">
-		<constructor-arg value="encPassTest" />
-		<constructor-arg value="7465737473616c74" />
+	      factory-method="noOpText">
+<!--		<constructor-arg value="encPassTest" />
+		<constructor-arg value="7465737473616c74" />-->
 	</bean>
 
 	<bean id="connectionConverter" class="org.springframework.social.connect.mongo.ConnectionConverter">
