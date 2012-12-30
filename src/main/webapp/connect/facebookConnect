@@ -9,7 +9,8 @@ and open the template in the editor.
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 	</head>
 	<body>
-		<div>TODO write content</div>
+		<div>Error: <span></span></div>
+<p>Connections</p>
 		{{#connections}}
 			<p>Conn</p>
 			{{/connections}}

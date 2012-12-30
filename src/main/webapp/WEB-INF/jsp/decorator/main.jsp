@@ -42,6 +42,7 @@
 					(You'll be redirected to Twitter where you'll be asked to authorize the connection.)</p>
 				<p><input type="submit"/></p>
 			</form>
+				<p>Error: ${social.provider.error}</p>
 
 		</header>
 

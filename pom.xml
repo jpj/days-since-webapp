@@ -137,6 +137,12 @@
 			<version>0.9.0</version>
 			<scope>provided</scope>
 		</dependency>
+	 <dependency>
+	  <groupId>bouncycastle</groupId>
+	  <artifactId>bcprov-jdk16</artifactId>
+	  <version>140</version>
+	  <scope>provided</scope>
+	 </dependency>
 	</dependencies>
 
 	<profiles>
