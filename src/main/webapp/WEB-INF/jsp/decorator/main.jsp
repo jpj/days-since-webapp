@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@taglib prefix="jwr" uri="http://jawr.net/tags" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="appcache"><decorator:getProperty property="meta.appcache"/></c:set>
 
@@ -36,13 +37,13 @@
 	</head>
 	<body>
 		<header>
+			<p>
+				Logged in as: <security:authentication property="principal.username"/>
+				<a href="<c:url value="/logout"/>">Logout</a>
+			</p>
 			<form action="<c:url value="/connect/facebook" />" method="POST">
-				<p>You haven't created any connections with Twitter yet. Click the button to create
-					a connection between your account and your Twitter profile.
-					(You'll be redirected to Twitter where you'll be asked to authorize the connection.)</p>
-				<p><input type="submit"/></p>
+				<p><input type="submit" value="Log in With Facebook"/></p>
 			</form>
-				<p>Error: ${social.provider.error}</p>
 
 		</header>
 

@@ -9,10 +9,6 @@ and open the template in the editor.
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 	</head>
 	<body>
-		<div>Error: <span></span></div>
-<p>Connections</p>
-		{{#connections}}
-			<p>Conn</p>
-			{{/connections}}
+		<p>You are not connected to facebook yet</p>
 	</body>
 </html>

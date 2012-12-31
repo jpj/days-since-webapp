@@ -80,19 +80,20 @@
 
 	<security:http use-expressions="true" auto-config="true">
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
-		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS')"/>
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 		<!--<security:form-login login-page="/login" default-target-url='/' authentication-failure-url="/login?login_error=true"/>-->
-		<security:form-login/>
+		<!--<security:form-login/>-->
 		<security:anonymous/>
 		<security:http-basic/>
 	</security:http>
 
 	<security:user-service id="namePassUserService">
-		<security:user name="test" password="hoohoo" authorities="ROLE_USER"/>
+		<security:user name="test1" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
+		<security:user name="anonymous" password="badpass" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
 	</security:user-service>
 
-	<security:authentication-manager>
+	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider user-service-ref="namePassUserService">
 			<security:password-encoder hash="plaintext"/>
 		</security:authentication-provider>
