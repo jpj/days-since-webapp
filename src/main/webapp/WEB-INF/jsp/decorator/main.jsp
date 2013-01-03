@@ -38,10 +38,12 @@
 	<body>
 		<header>
 			<p>
+				<security:authorize ifAnyGranted="ROLE_USER">
 				Logged in as: <security:authentication property="principal.username"/>
 				<a href="<c:url value="/logout"/>">Logout</a>
+				</security:authorize>
 			</p>
-			<form action="<c:url value="/connect/facebook" />" method="POST">
+			<form action="<c:url value="/signin/facebook" />" method="POST">
 				<p><input type="submit" value="Log in With Facebook"/></p>
 			</form>
 

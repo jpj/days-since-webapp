@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:security="http://www.springframework.org/schema/security"
@@ -9,10 +10,12 @@
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<context:component-scan base-package="com.solairis.dayssince.connect"/>
 	<mongo:mongo id="mongo">
 		<mongo:options connections-per-host="8"
 			       threads-allowed-to-block-for-connection-multiplier="4"
@@ -47,7 +50,7 @@
 
 	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
 	      factory-method="noOpText">
-<!--		<constructor-arg value="encPassTest" />
+		<!--		<constructor-arg value="encPassTest" />
 		<constructor-arg value="7465737473616c74" />-->
 	</bean>
 
@@ -62,9 +65,10 @@
 	</bean>
 
 	<bean id="usersConnectionRepository" class="org.springframework.social.connect.mongo.MongoUsersConnectionRepository">
-		<constructor-arg ref="connectionService"/> <!-- MAKE THIS -->
+		<constructor-arg ref="connectionService"/>
 		<constructor-arg ref="connectionFactoryLocator"/>
 		<constructor-arg ref="textEncryptor"/>
+		<property name="connectionSignUp" ref="userConnectionSignUp"/>
 	</bean>
 
 	<bean id="connectionRepository" factory-method="createConnectionRepository"
@@ -72,6 +76,9 @@
 		<constructor-arg value="#{request.userPrincipal.name}" />
 		<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
+
+	<bean id="userConnectionSignUp" class="com.solairis.dayssince.connect.UserConnectionSignUp"/>
+	<bean id="userSignInAdapter" class="com.solairis.dayssince.connect.UserSignInAdapter"/>
 
 	<!-- Security -->
 	<security:http pattern="/favicon.ico" security="none"/>
@@ -89,8 +96,10 @@
 	</security:http>
 
 	<security:user-service id="namePassUserService">
-		<security:user name="test1" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
+		<security:user name="test" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
 		<security:user name="anonymous" password="badpass" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
+		<security:user name="josh" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
+		<security:user name="joshpauljohnson" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
 	</security:user-service>
 
 	<security:authentication-manager alias="authenticationManager">
