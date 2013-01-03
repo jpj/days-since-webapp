@@ -15,7 +15,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<context:component-scan base-package="com.solairis.dayssince.connect"/>
+	<context:component-scan base-package="com.solairis.dayssince.connect, com.solairis.dayssince.security"/>
+	<mongo:repositories base-package="com.solairis.incident"/>
 	<mongo:mongo id="mongo">
 		<mongo:options connections-per-host="8"
 			       threads-allowed-to-block-for-connection-multiplier="4"
@@ -87,12 +88,13 @@
 
 	<security:http use-expressions="true" auto-config="true">
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
-		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS')"/>
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/"/>
 		<!--<security:form-login login-page="/login" default-target-url='/' authentication-failure-url="/login?login_error=true"/>-->
-		<!--<security:form-login/>-->
+		<security:form-login/>
 		<security:anonymous/>
 		<security:http-basic/>
+		<!--<security:remember-me token-repository-ref=""/>-->
 	</security:http>
 
 	<security:user-service id="namePassUserService">
@@ -102,9 +104,14 @@
 		<security:user name="joshpauljohnson" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
 	</security:user-service>
 
+	<bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userUserDetailsService"/>
+		<property name="passwordEncoder" ref="userPasswordEncoder"/>
+	</bean>
+
 	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider user-service-ref="namePassUserService">
-			<security:password-encoder hash="plaintext"/>
+		<security:authentication-provider user-service-ref="userUserDetailsService">
+			<!--<security:password-encoder hash="plaintext"/>-->
 		</security:authentication-provider>
 	</security:authentication-manager>
 

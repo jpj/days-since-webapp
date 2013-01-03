@@ -4,6 +4,8 @@
  */
 package com.solairis.dayssince.connect;
 
+import com.solairis.incident.entity.User;
+import com.solairis.incident.repository.UserRepository;
 import java.util.ArrayList;
 import javax.annotation.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
@@ -28,16 +32,19 @@ public class UserSignInAdapter implements SignInAdapter {
 
 	@Resource
 	private AuthenticationManager authenticationManager;
+	@Resource
+	private UserDetailsService userUserDetailsService;
+	@Resource
+	private UserRepository userRepository;
 
 	@Override
 	public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userId, "hoohoo", new ArrayList<SimpleGrantedAuthority>() {
-			{
-				add(new SimpleGrantedAuthority("ROLE_USER"));
-			}
-		});
-		Authentication authentication = authenticationManager.authenticate(authRequest);
+		User user = this.userRepository.findByLogin(userId);
+		UserDetails userDetails = this.userUserDetailsService.loadUserByUsername(userId);
+
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword());
+		authentication = authenticationManager.authenticate(authentication);
 		securityContext.setAuthentication(authentication);
 
 		request.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext, WebRequest.SCOPE_SESSION);

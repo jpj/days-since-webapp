@@ -4,6 +4,8 @@
  */
 package com.solairis.dayssince.connect;
 
+import com.solairis.incident.entity.User;
+import com.solairis.incident.repository.UserRepository;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,6 +25,8 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 
 	@Resource
 	private ConnectionService connectionService;
+	@Resource
+	private UserRepository userRepository;
 
 	@Override
 	public String execute(Connection<?> connection) {
@@ -34,7 +38,11 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 
 			if (userIds.isEmpty()) {
 				// Create new user
-				return connection.getDisplayName();
+				User u = this.userRepository.save(new User());
+				u.setLogin("user"+u.getId());
+				u.setPassword("password"+u.getId());
+				this.userRepository.save(u);
+				return u.getLogin();
 			} else if (userIds.size() == 1) {
 				return userIds.get(0);
 			} else {

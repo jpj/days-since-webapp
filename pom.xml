@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.solairis.incident</groupId>
 			<artifactId>incident-api</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.8-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
