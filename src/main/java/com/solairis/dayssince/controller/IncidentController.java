@@ -6,7 +6,6 @@ package com.solairis.dayssince.controller;
 
 import com.solairis.incident.entity.Incident;
 import com.solairis.incident.repository.IncidentRepository;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,7 @@ public class IncidentController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<Incident> list(@PageableDefaults(sort={"startDate"}, sortDir= Sort.Direction.DESC) Pageable pageable) {
+	public List<Incident> list(@PageableDefaults(sort = {"startDate"}, sortDir = Sort.Direction.DESC) Pageable pageable) {
 		return this.incidentRepository.findAll(pageable).getContent();
 	}
 
@@ -42,7 +41,7 @@ public class IncidentController {
 		return incident;
 	}
 
-	@RequestMapping(method= RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public Incident save(@RequestBody Incident incident) {
 		return this.incidentRepository.save(incident);
