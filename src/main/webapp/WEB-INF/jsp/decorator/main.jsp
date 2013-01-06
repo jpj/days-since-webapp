@@ -39,43 +39,45 @@
 		<header>
 			<p>
 				<security:authorize ifAnyGranted="ROLE_USER">
-				Logged in as: <security:authentication property="principal.username"/>
-				<a href="<c:url value="/logout"/>">Logout</a>
+					Logged in as: <security:authentication property="principal.username"/>
+					<a href="<c:url value="/logout"/>">Logout</a>
 				</security:authorize>
-			</p>
-			<form action="<c:url value="/signin/facebook" />" method="POST">
-				<p><input type="submit" value="Log in With Facebook"/></p>
-			</form>
+				<security:authorize ifNotGranted="ROLE_USER">
+				<form action="<c:url value="/signin/facebook" />" method="POST">
+					<p><input type="submit" value="Log in With Facebook"/></p>
+				</form>
+			</security:authorize>
+		</p>
 
-		</header>
+	</header>
 
-		<div id="page">
-			<decorator:body/>
-		</div>
+	<div id="page">
+		<decorator:body/>
+	</div>
 
-		<script type="text/html" id="home-template">
-			<div id="home">
-				<div>
-					<form>
-						<div>
-							Days Since
-							<input type="text" name="label" placeholder="..."/>
-							<input type="submit" value="Go"/>
-						</div>
-					</form>
-				</div>
-				<h2>Most Recent Incidents</h2>
-				<ul>
-				</ul>
+	<script type="text/html" id="home-template">
+		<div id="home">
+			<div>
+				<form>
+					<div>
+						Days Since
+						<input type="text" name="label" placeholder="..."/>
+						<input type="submit" value="Go"/>
+					</div>
+				</form>
 			</div>
-		</script>
-
-		<script type="text/template" id="incident-preview-template">
-		<li data-id="{{id}}" class="incident">{{daysSince}} Days Since <a href="app/incident/{{id}}">{{label}}</a></li>
+			<h2>Most Recent Incidents</h2>
+			<ul>
+			</ul>
+		</div>
 	</script>
 
-	<script type="text/template" id="incident-template">
-		<%@include file="../../partial/incident.html" %>
-	</script>
+	<script type="text/template" id="incident-preview-template">
+	<li data-id="{{id}}" class="incident">{{daysSince}} Days Since <a href="app/incident/{{id}}">{{label}}</a></li>
+</script>
+
+<script type="text/template" id="incident-template">
+	<%@include file="../../partial/incident.html" %>
+</script>
 </body>
 </html>
