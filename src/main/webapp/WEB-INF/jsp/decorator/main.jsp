@@ -42,7 +42,8 @@
 		<header>
 			<p>
 				<security:authorize ifAnyGranted="ROLE_USER">
-					Logged in as: <security:authentication property="principal.username"/>
+					Logged in as: <security:authentication property="principal.user.login"/>
+					<a class="user-settings" href="<c:url value="/user-settings"/>">Settings</a> /
 					<a href="<c:url value="/logout"/>">Logout</a>
 				</security:authorize>
 				<security:authorize ifNotGranted="ROLE_USER">

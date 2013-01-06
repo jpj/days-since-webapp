@@ -37,6 +37,8 @@
 
 	<!-- Catch Remaining Requests -->
 	<mvc:view-controller path="/" view-name="app.html"/>
+	<mvc:view-controller path="/incident/**" view-name="app.html"/>
+	<mvc:view-controller path="/user-settings" view-name="app.html"/>
 
 	<bean id="mustacheViewResolver" class="org.springframework.web.servlet.view.mustache.MustacheViewResolver">
 		<property name="cache" value="false" />
