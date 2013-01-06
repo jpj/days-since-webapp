@@ -2,7 +2,9 @@ DaysSince.Router.App = Backbone.Router.extend({
 
 	routes: {
 		"": "home",
-		"app/incident/:id": "getIncident"
+		"app/incident/:id": "getIncident",
+
+		"*action": "unknownAction"
 	},
 
 	initialize: function() {
@@ -28,5 +30,8 @@ DaysSince.Router.App = Backbone.Router.extend({
 			// Next pass will need rendering
 			this.views.incident.options.incidentRendered = false;
 		}
+	},
+	unknownAction: function(action) {
+		this.navigate('/', true);
 	}
 });

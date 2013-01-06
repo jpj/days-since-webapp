@@ -38,9 +38,19 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 
 			if (userIds.isEmpty()) {
 				// Create new user
-				User u = this.userRepository.save(new User());
-				u.setLogin("user"+u.getId());
-				u.setPassword("password"+u.getId());
+				User u = new User();
+				if (connection.fetchUserProfile().getUsername() != null) {
+					User prevUser = this.userRepository.findByLogin(connection.fetchUserProfile().getUsername());
+					if (prevUser == null) {
+						u.setLogin(connection.fetchUserProfile().getUsername());
+					} else {
+						u.setLogin(connection.fetchUserProfile().getUsername() + (this.userRepository.count() + 1));
+					}
+				} else {
+					u.setLogin("user" + (this.userRepository.count() + 1));
+				}
+
+				u.setPassword("!bunk");
 				this.userRepository.save(u);
 				return u.getLogin();
 			} else if (userIds.size() == 1) {
