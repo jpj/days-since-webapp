@@ -97,20 +97,8 @@
 		<!--<security:remember-me token-repository-ref=""/>-->
 	</security:http>
 
-	<security:user-service id="namePassUserService">
-		<security:user name="test" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
-		<security:user name="anonymous" password="badpass" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
-		<security:user name="josh" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
-		<security:user name="joshpauljohnson" password="hoohoo" authorities="ROLE_USER, ROLE_ANONYMOUS"/>
-	</security:user-service>
-
-	<bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService" ref="userUserDetailsService"/>
-		<property name="passwordEncoder" ref="userPasswordEncoder"/>
-	</bean>
-
 	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider user-service-ref="userUserDetailsService">
+		<security:authentication-provider user-service-ref="principalUserDetailsService">
 			<!--<security:password-encoder hash="plaintext"/>-->
 		</security:authentication-provider>
 	</security:authentication-manager>
