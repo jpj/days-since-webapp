@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,7 @@ public class IncidentController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
+	@PreAuthorize("principal == 'anonymousUser' and #incident.userId == null or principal.user.id == #incident.userId")
 	public Incident save(@RequestBody Incident incident) {
 		return this.incidentRepository.save(incident);
 	}
