@@ -30,8 +30,12 @@ DaysSince.View.Home = Backbone.View.extend({
 	getIncident: function(e) {
 		e.preventDefault();
 		var $inc = $(e.currentTarget).parent();
-		window.app.views.incident.model.set({id: $inc.data("id")});
-		window.app.views.incident.model.fetch();
+		if (window.app.views.incident.model.get("id") === $inc.data("id")) {
+			window.app.views.incident.render();
+		} else {
+			window.app.views.incident.model.set({id: $inc.data("id")}, {silent: true});
+			window.app.views.incident.model.fetch();
+		}
 		window.app.navigate('/app/incident/'+$inc.data("id"));
 	},
 

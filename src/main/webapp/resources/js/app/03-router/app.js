@@ -8,7 +8,7 @@ DaysSince.Router.App = Backbone.Router.extend({
 	initialize: function() {
 		this.views = {
 			home: new DaysSince.View.Home({el: $("body"), collection: new DaysSince.Collection.Incident()}),
-			incident: new DaysSince.View.Incident({el: $("body"), model: new DaysSince.Model.Incident()})
+			incident: new DaysSince.View.Incident({el: $("body"), model: new DaysSince.Model.Incident(), incidentRendered: $("meta[name=incidentRendered]").attr("content") === 'true'})
 		}
 	},
 
@@ -16,11 +16,17 @@ DaysSince.Router.App = Backbone.Router.extend({
 		this.views.home.collection.fetch();
 	},
 	getIncident: function(id) {
-		if (this.views.incident.model.get("id") == id) {
-			this.views.incident.render();
+		if (!this.views.incident.options.incidentRendered) {
+			// Fetch/render only if the view wasn't rendered by the server
+			if (this.views.incident.model.get("id") === id) {
+				this.views.incident.render();
+			} else {
+				this.views.incident.model.set({id: id}, {silent: true});
+				this.views.incident.model.fetch();
+			}
 		} else {
-			this.views.incident.model.set({id: id}, {silent: true});
-			this.views.incident.model.fetch();
+			// Next pass will need rendering
+			this.views.incident.options.incidentRendered = false;
 		}
 	}
 });
