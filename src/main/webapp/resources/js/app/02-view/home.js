@@ -43,7 +43,7 @@ DaysSince.View.Home = Backbone.View.extend({
 		e.preventDefault();
 		var $form = $(e.currentTarget);
 		var incident = new DaysSince.Model.Incident();
-		incident.set({startDate: new Date(), label: $form.find("input[name=label]").val()});
+		incident.set({startDate: new Date(), label: $form.find("input[name=label]").val(), userId: window.app.userId});
 		incident.save(null, {
 			success: function() {
 				window.app.views.incident.model.set({id: incident.get("id")}, {silent: true});

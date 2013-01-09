@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.solairis.incident</groupId>
 			<artifactId>incident-api</artifactId>
-			<version>1.0.7</version>
+			<version>1.1.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -113,6 +113,48 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>1.0.2.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+			<version>1.0.2.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>1.0.2.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+	 <dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-taglibs</artifactId>
+	  <version>3.1.0.RELEASE</version>
+	  <scope>provided</scope>
+	 </dependency>
+	 <dependency>
+	  <groupId>javax.servlet</groupId>
+	  <artifactId>servlet-api</artifactId>
+	  <version>2.5</version>
+	  <scope>provided</scope>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-web</artifactId>
+	  <version>3.0.5.RELEASE</version>
+	  <scope>provided</scope>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.social</groupId>
+	  <artifactId>spring-social-mongo</artifactId>
+	  <version>1.0.0</version>
+	  <scope>provided</scope>
+	 </dependency>
 	</dependencies>
 
 	<profiles>

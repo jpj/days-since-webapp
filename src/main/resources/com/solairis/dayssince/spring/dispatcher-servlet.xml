@@ -3,6 +3,7 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="
@@ -10,16 +11,20 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 ">
 
+	<security:global-method-security pre-post-annotations="enabled"/>
 
 	<context:component-scan base-package="com.solairis.dayssince.controller"/>
-	<mongo:repositories base-package="com.solairis.incident"/>
 	<mvc:annotation-driven conversion-service="conversionService">
 		<mvc:argument-resolvers>
 			<bean class="org.springframework.data.web.PageableArgumentResolver"/>
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
+<!--	<mvc:interceptors>
+		<bean class="com.solairis.dayssince.interceptor.LoginInterceptor"/>
+	</mvc:interceptors>-->
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
@@ -35,6 +40,8 @@
 
 	<!-- Catch Remaining Requests -->
 	<mvc:view-controller path="/" view-name="app.html"/>
+	<mvc:view-controller path="/incident/**" view-name="app.html"/>
+	<mvc:view-controller path="/user-settings" view-name="app.html"/>
 
 	<bean id="mustacheViewResolver" class="org.springframework.web.servlet.view.mustache.MustacheViewResolver">
 		<property name="cache" value="false" />
@@ -61,5 +68,12 @@
 				<prop key="/**/*.css">jawrCssController</prop>
 			</props>
 		</property>
+	</bean>
+
+	<bean class="org.springframework.social.connect.web.ConnectController">
+	</bean>
+
+	<bean class="org.springframework.social.connect.web.ProviderSignInController">
+
 	</bean>
 </beans>
