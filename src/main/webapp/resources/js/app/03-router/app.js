@@ -2,14 +2,22 @@ DaysSince.Router.App = Backbone.Router.extend({
 
 	routes: {
 		"": "home",
-		"app/incident/:id": "getIncident"
+		"app/incident/:id": "getIncident",
+		"user-settings": "getUserSettings",
+
+		"*action": "unknownAction"
 	},
 
 	initialize: function() {
 		this.views = {
-			home: new DaysSince.View.Home({el: $("body"), collection: new DaysSince.Collection.Incident()}),
-			incident: new DaysSince.View.Incident({el: $("body"), model: new DaysSince.Model.Incident(), incidentRendered: $("meta[name=incidentRendered]").attr("content") === 'true'})
-		}
+			home: new DaysSince.View.Home({el: $("#page"), collection: new DaysSince.Collection.Incident()}),
+			incident: new DaysSince.View.Incident({el: $("#page"), model: new DaysSince.Model.Incident(), incidentRendered: $("meta[name=incidentRendered]").attr("content") === 'true'}),
+			header: new DaysSince.View.Header({el: $("body > header")}),
+			userSettings: new DaysSince.View.UserSettings({el: $("#page"), model: new DaysSince.Model.User()})
+		};
+
+		this.userId = $("meta[name=userId]").attr("content");
+		this.views.header.render().$el.data("userId", this.userId);
 	},
 
 	home: function() {
@@ -28,5 +36,12 @@ DaysSince.Router.App = Backbone.Router.extend({
 			// Next pass will need rendering
 			this.views.incident.options.incidentRendered = false;
 		}
+	},
+	getUserSettings: function() {
+		this.views.userSettings.model.set({id: this.views.header.$el.data("userId")}, {silent: true});
+		this.views.userSettings.model.fetch();
+	},
+	unknownAction: function(action) {
+		this.navigate('/', true);
 	}
 });

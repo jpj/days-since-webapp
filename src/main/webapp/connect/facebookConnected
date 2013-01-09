@@ -1,0 +1,17 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	</head>
+	<body>
+		<p>You are connected to facebook</p>
+		{{#connections}}
+			<p>A connection</p>
+			{{/connections}}
+	</body>
+</html>
