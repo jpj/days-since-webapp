@@ -97,9 +97,12 @@
 		<!--<security:remember-me token-repository-ref=""/>-->
 	</security:http>
 
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+	</bean>
+
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider user-service-ref="principalUserDetailsService">
-			<!--<security:password-encoder hash="plaintext"/>-->
+			<security:password-encoder hash="md5"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 

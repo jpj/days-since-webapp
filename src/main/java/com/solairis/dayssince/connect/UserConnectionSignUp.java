@@ -6,13 +6,16 @@ package com.solairis.dayssince.connect;
 
 import com.solairis.incident.entity.User;
 import com.solairis.incident.repository.UserRepository;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.Resource;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mongo.ConnectionService;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +30,8 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 	private ConnectionService connectionService;
 	@Resource
 	private UserRepository userRepository;
+	@Resource
+	private UsersConnectionRepository usersConnectionRepository;
 
 	@Override
 	public String execute(Connection<?> connection) {
@@ -34,7 +39,8 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 		Object user = securityContext.getAuthentication().getPrincipal();
 
 		if (String.class.isAssignableFrom(user.getClass()) && user.equals("anonymousUser")) {
-			List<String> userIds = this.connectionService.getUserIds(connection.createData().getProviderId(), connection.createData().getProviderUserId());
+//			List<String> userIds = this.connectionService.getUserIds(connection.createData().getProviderId(), connection.createData().getProviderUserId());
+			Set<String> userIds = this.usersConnectionRepository.findUserIdsConnectedTo(connection.createData().getProviderId(), new HashSet<String>(Arrays.asList(connection.createData().getProviderUserId())));
 
 			if (userIds.isEmpty()) {
 				// Create new user
@@ -54,7 +60,7 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 				this.userRepository.save(u);
 				return u.getLogin();
 			} else if (userIds.size() == 1) {
-				return userIds.get(0);
+				return userIds.iterator().next();
 			} else {
 				throw new IllegalArgumentException("Only 1 user Id may be associated with a provider. We found "+userIds.size());
 			}

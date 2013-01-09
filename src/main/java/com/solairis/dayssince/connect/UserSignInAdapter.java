@@ -4,14 +4,9 @@
  */
 package com.solairis.dayssince.connect;
 
-import com.solairis.incident.entity.User;
-import com.solairis.incident.repository.UserRepository;
-import java.util.ArrayList;
+import com.solairis.dayssince.security.ManualAuthenticationToken;
 import javax.annotation.Resource;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,20 +26,14 @@ import org.springframework.web.context.request.WebRequest;
 public class UserSignInAdapter implements SignInAdapter {
 
 	@Resource
-	private AuthenticationManager authenticationManager;
-	@Resource
-	private UserDetailsService userUserDetailsService;
-	@Resource
-	private UserRepository userRepository;
+	private UserDetailsService principalUserDetailsService;
 
 	@Override
 	public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
-		User user = this.userRepository.findByLogin(userId);
-		UserDetails userDetails = this.userUserDetailsService.loadUserByUsername(userId);
+		UserDetails userDetails = this.principalUserDetailsService.loadUserByUsername(userId);
 
-		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword());
-		authentication = authenticationManager.authenticate(authentication);
+		Authentication authentication = new ManualAuthenticationToken(userDetails, userDetails.getAuthorities());
 		securityContext.setAuthentication(authentication);
 
 		request.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext, WebRequest.SCOPE_SESSION);
