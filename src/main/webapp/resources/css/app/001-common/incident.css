@@ -6,6 +6,10 @@
         Purpose of the stylesheet follows.
 */
 
+#app-header {
+	margin-top: 23px;
+}
+
 #incident .incident {
 	font-size: 80pt;
 	line-height: normal;

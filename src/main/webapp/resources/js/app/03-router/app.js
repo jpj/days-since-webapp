@@ -16,7 +16,8 @@ DaysSince.Router.App = Backbone.Router.extend({
 			userSettings: new DaysSince.View.UserSettings({el: $("#page"), model: new DaysSince.Model.User()})
 		};
 
-		this.views.header.render().$el.data("userId", $("meta[name=userId]").attr("content"));
+		this.userId = $("meta[name=userId]").attr("content");
+		this.views.header.render().$el.data("userId", this.userId);
 	},
 
 	home: function() {

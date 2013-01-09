@@ -39,7 +39,7 @@
 
 	</head>
 	<body>
-		<header>
+		<header id="app-header">
 			<p>
 				<security:authorize ifAnyGranted="ROLE_USER">
 					Logged in as: <security:authentication property="principal.user.login"/>
