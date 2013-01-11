@@ -4,7 +4,7 @@
 	<groupId>com.solairis.dayssince</groupId>
 	<artifactId>days-since-webapp</artifactId>
 	<packaging>war</packaging>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1.1-SNAPSHOT</version>
 	<name>Days Since Web Application</name>
 	<url>http://solairis.com</url>
 
@@ -29,12 +29,12 @@
 	<distributionManagement>
 		<repository>
 			<id>solairis-local-releases</id>
-			<url>http://solairis.com:8182/nexus/content/repositories/releases</url>
+			<url>http://nexus.solairis.com/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>solairis-local-snapshots</id>
 			<name>Solairis Snapshots</name>
-			<url>http://solairis.com:8182/nexus/content/repositories/snapshots</url>
+			<url>http://nexus.solairis.com/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -169,8 +169,8 @@
 						<configuration>
 							<server>solairis-prod</server>
 							<mode>war</mode>
-							<url>http://days-since.solairis.com:8080/manager/text</url>
-							<path>/</path>
+							<url>http://solairis.com:8080/manager/text</url>
+							<path>/days-since-webapp</path>
 						</configuration>
 					</plugin>
 				</plugins>

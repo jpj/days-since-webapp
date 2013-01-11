@@ -16,7 +16,7 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<context:component-scan base-package="com.solairis.dayssince.connect, com.solairis.dayssince.security"/>
-	<mongo:repositories base-package="com.solairis.incident"/>
+	<mongo:repositories base-package="com.solairis.incident.repository, com.solairis.dayssince.repository"/>
 	<mongo:mongo id="mongo">
 		<mongo:options connections-per-host="8"
 			       threads-allowed-to-block-for-connection-multiplier="4"
@@ -41,9 +41,13 @@
 	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
 		<property name="connectionFactories">
 			<list>
-				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+<!--				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
 					<constructor-arg value="501778863200129"/>
 					<constructor-arg value="ce17f2d5f35f3f6119cf1163122ae13e"/>
+				</bean>-->
+				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+					<constructor-arg value="382315248529539"/>
+					<constructor-arg value="d7438ce3094c85be9c4aee0c6c4342b6"/>
 				</bean>
 			</list>
 		</property>
@@ -86,6 +90,13 @@
 	<security:http pattern="/resources/**" security="none"/>
 	<security:http pattern="/*/resources/**" security="none"/>
 
+	<bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+		<property name="tokenRepository" ref="mongoTokenRepository"/>
+		<property name="userDetailsService" ref="principalUserDetailsService"/>
+		<property name="key" value="daysSinceRememberMeKey"/>
+		<property name="alwaysRemember" value="true"/>
+	</bean>
+
 	<security:http use-expressions="true" auto-config="true">
 		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')"/>
@@ -94,7 +105,7 @@
 		<security:form-login/>
 		<security:anonymous/>
 		<security:http-basic/>
-		<!--<security:remember-me token-repository-ref=""/>-->
+		<security:remember-me services-ref="rememberMeServices" key="daysSinceRememberMeKey"/>
 	</security:http>
 
 	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
