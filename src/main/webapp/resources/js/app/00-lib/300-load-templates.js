@@ -27,7 +27,7 @@ $(function() {
 DaysSince.Util.errorResolver = function(error) {
 	for(var i = 0; i < error.codes.length; i++) {
 		var code = error.codes[i];
-		if (solairis.ycl.error.properties[code]) {
+		if (DaysSince.Constant.Error.Property[code]) {
 			return DaysSince.Constant.Error.Property[code];
 		}
 	}

@@ -4,6 +4,7 @@
  */
 package com.solairis.dayssince.connect;
 
+import com.solairis.dayssince.repository.TokenRepository;
 import com.solairis.dayssince.security.ManualAuthenticationToken;
 import javax.annotation.Resource;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
@@ -27,6 +29,8 @@ public class UserSignInAdapter implements SignInAdapter {
 
 	@Resource
 	private UserDetailsService principalUserDetailsService;
+	@Resource
+	private PersistentTokenBasedRememberMeServices rememberMeServices;
 
 	@Override
 	public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
@@ -34,6 +38,7 @@ public class UserSignInAdapter implements SignInAdapter {
 		UserDetails userDetails = this.principalUserDetailsService.loadUserByUsername(userId);
 
 		Authentication authentication = new ManualAuthenticationToken(userDetails, userDetails.getAuthorities());
+//		this.rememberMeServices.
 		securityContext.setAuthentication(authentication);
 
 		request.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext, WebRequest.SCOPE_SESSION);
