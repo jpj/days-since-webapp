@@ -4,7 +4,7 @@
 	<groupId>com.solairis.dayssince</groupId>
 	<artifactId>days-since-webapp</artifactId>
 	<packaging>war</packaging>
-	<version>1.2</version>
+	<version>1.3-SNAPSHOT</version>
 	<name>Days Since Web Application</name>
 	<url>http://solairis.com</url>
 
