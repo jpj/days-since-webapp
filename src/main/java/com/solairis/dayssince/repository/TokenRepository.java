@@ -4,16 +4,15 @@
  */
 package com.solairis.dayssince.repository;
 
+import com.solairis.dayssince.security.MongoPersistentRememberMeToken;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 
 /**
  *
  * @author JanieBear
  */
-public interface TokenRepository extends CrudRepository<PersistentRememberMeToken, String> {
+public interface TokenRepository extends CrudRepository<MongoPersistentRememberMeToken, String> {
 
-	PersistentRememberMeToken findBySeries(String series);
-	Iterable<PersistentRememberMeToken> findByUsername(String username);
+	Iterable<MongoPersistentRememberMeToken> findByUsername(String username);
 
 }

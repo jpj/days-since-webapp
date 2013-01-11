@@ -4,9 +4,11 @@
  */
 package com.solairis.dayssince.connect;
 
-import com.solairis.dayssince.repository.TokenRepository;
 import com.solairis.dayssince.security.ManualAuthenticationToken;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +20,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 
 /**
  *
@@ -27,6 +29,8 @@ import org.springframework.web.context.request.WebRequest;
 @Component
 public class UserSignInAdapter implements SignInAdapter {
 
+	@Resource
+	private AuthenticationManager authenticationManager;
 	@Resource
 	private UserDetailsService principalUserDetailsService;
 	@Resource
@@ -38,10 +42,10 @@ public class UserSignInAdapter implements SignInAdapter {
 		UserDetails userDetails = this.principalUserDetailsService.loadUserByUsername(userId);
 
 		Authentication authentication = new ManualAuthenticationToken(userDetails, userDetails.getAuthorities());
-//		this.rememberMeServices.
+		this.rememberMeServices.loginSuccess(request.getNativeRequest(HttpServletRequest.class), request.getNativeResponse(HttpServletResponse.class), authentication);
 		securityContext.setAuthentication(authentication);
 
-		request.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext, WebRequest.SCOPE_SESSION);
+		request.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext, RequestAttributes.SCOPE_SESSION);
 		return null;
 	}
 }
