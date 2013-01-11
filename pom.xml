@@ -29,12 +29,12 @@
 	<distributionManagement>
 		<repository>
 			<id>solairis-local-releases</id>
-			<url>http://nexus.solairis.com/content/repositories/releases</url>
+			<url>http://solairis.com/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>solairis-local-snapshots</id>
 			<name>Solairis Snapshots</name>
-			<url>http://nexus.solairis.com/content/repositories/snapshots</url>
+			<url>http://solairis.com/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
