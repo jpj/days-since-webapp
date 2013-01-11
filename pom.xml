@@ -169,8 +169,8 @@
 						<configuration>
 							<server>solairis-prod</server>
 							<mode>war</mode>
-							<url>http://days-since.solairis.com:8080/manager/text</url>
-							<path>/</path>
+							<url>http://solairis.com:8080/manager/text</url>
+							<path>/days-since-webapp</path>
 						</configuration>
 					</plugin>
 				</plugins>

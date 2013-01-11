@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Resource;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class UserConnectionSignUp implements ConnectionSignUp {
 
 	@Resource
-	private ConnectionService connectionService;
+	private PasswordEncoder passwordEncoder;
 	@Resource
 	private UserRepository userRepository;
 	@Resource
@@ -56,7 +57,7 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 					u.setLogin("user" + (this.userRepository.count() + 1));
 				}
 
-				u.setPassword("!bunk");
+				u.setPassword(this.passwordEncoder.encodePassword("!bunk", null));
 				this.userRepository.save(u);
 				return u.getLogin();
 			} else if (userIds.size() == 1) {
