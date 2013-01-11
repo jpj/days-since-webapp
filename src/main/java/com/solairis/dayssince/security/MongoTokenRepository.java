@@ -23,25 +23,27 @@ public class MongoTokenRepository implements PersistentTokenRepository {
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
-		this.tokenRepository.save(token);
+		this.tokenRepository.save(new MongoPersistentRememberMeToken(token.getUsername(), token.getSeries(), token.getTokenValue(), token.getDate()));
 	}
 
 	@Override
 	public void updateToken(String series, String tokenValue, Date lastUsed) {
-		PersistentRememberMeToken token = this.tokenRepository.findBySeries(series);
-		PersistentRememberMeToken updatedToken = new PersistentRememberMeToken(token.getUsername(), token.getSeries(), tokenValue, token.getDate());
+		MongoPersistentRememberMeToken token = this.tokenRepository.findOne(series);
+		MongoPersistentRememberMeToken updatedToken = new MongoPersistentRememberMeToken(token.getUsername(), token.getSeries(), tokenValue, token.getDate());
 		this.tokenRepository.save(updatedToken);
 	}
 
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-		return this.tokenRepository.findBySeries(seriesId);
+		return this.tokenRepository.findOne(seriesId);
 	}
 
 	@Override
 	public void removeUserTokens(String username) {
-		Iterable<PersistentRememberMeToken> tokens = this.tokenRepository.findByUsername(username);
-		this.tokenRepository.delete(tokens);
+		Iterable<MongoPersistentRememberMeToken> tokens = this.tokenRepository.findByUsername(username);
+		if (tokens != null) {
+			this.tokenRepository.delete(tokens);
+		}
 	}
 
 }
