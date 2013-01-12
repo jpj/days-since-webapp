@@ -57,7 +57,7 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 					u.setLogin("user" + (this.userRepository.count() + 1));
 				}
 
-				u.setPassword(this.passwordEncoder.encodePassword("!bunk", null));
+				u.setPassword("!bunk");
 				this.userRepository.save(u);
 				return u.getLogin();
 			} else if (userIds.size() == 1) {
