@@ -165,6 +165,9 @@
 		<profile>
 			<id>prod</id>
 			<build>
+				<filters>
+					<filter>src/main/filter/prod.properties</filter>
+				</filters>
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
@@ -180,9 +183,27 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<filters>
+					<filter>src/main/filter/local.properties</filter>
+				</filters>
+			</build>
+		</profile>
 	</profiles>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
