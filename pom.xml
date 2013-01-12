@@ -4,7 +4,7 @@
 	<groupId>com.solairis.dayssince</groupId>
 	<artifactId>days-since-webapp</artifactId>
 	<packaging>war</packaging>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>SNAPSHOT</version>
 	<name>Days Since Web Application</name>
 	<url>http://solairis.com</url>
 
@@ -29,14 +29,18 @@
 	<distributionManagement>
 		<repository>
 			<id>solairis-local-releases</id>
-			<url>http://nexus.solairis.com/content/repositories/releases</url>
+			<url>http://solairis.com/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>solairis-local-snapshots</id>
 			<name>Solairis Snapshots</name>
-			<url>http://nexus.solairis.com/content/repositories/snapshots</url>
+			<url>http://solairis.com/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<properties>
+		<netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -131,30 +135,30 @@
 			<version>1.0.2.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
-	 <dependency>
-	  <groupId>org.springframework.security</groupId>
-	  <artifactId>spring-security-taglibs</artifactId>
-	  <version>3.1.0.RELEASE</version>
-	  <scope>provided</scope>
-	 </dependency>
-	 <dependency>
-	  <groupId>javax.servlet</groupId>
-	  <artifactId>servlet-api</artifactId>
-	  <version>2.5</version>
-	  <scope>provided</scope>
-	 </dependency>
-	 <dependency>
-	  <groupId>org.springframework.security</groupId>
-	  <artifactId>spring-security-web</artifactId>
-	  <version>3.0.5.RELEASE</version>
-	  <scope>provided</scope>
-	 </dependency>
-	 <dependency>
-	  <groupId>org.springframework.social</groupId>
-	  <artifactId>spring-social-mongo</artifactId>
-	  <version>1.0.0</version>
-	  <scope>provided</scope>
-	 </dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.1.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.0.5.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-mongo</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>
