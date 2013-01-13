@@ -5,18 +5,17 @@
 package com.solairis.dayssince.security;
 
 import com.solairis.incident.entity.User;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
  * @author JanieBear
  */
-public class Principal implements UserDetails {
+public class Principal implements UserDetails, Serializable {
 
 	private String password;
 	private final String username;
