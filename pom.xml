@@ -164,6 +164,11 @@
 	<profiles>
 		<profile>
 			<id>prod</id>
+
+			<properties>
+				<context.root>/days-since</context.root>
+			</properties>
+
 			<build>
 				<filters>
 					<filter>src/main/filter/prod.properties</filter>
@@ -177,7 +182,7 @@
 							<server>solairis-prod</server>
 							<mode>war</mode>
 							<url>http://solairis.com:8080/manager/text</url>
-							<path>/days-since-webapp</path>
+							<path>${context.root}</path>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -188,6 +193,11 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+
+			<properties>
+				<context.root>/days-since</context.root>
+			</properties>
+
 			<build>
 				<filters>
 					<filter>src/main/filter/local.properties</filter>
@@ -221,6 +231,22 @@
 				<configuration>
 					<mode>both</mode>
 					<update>true</update>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>resources/js/app/00-lib/001-constants.js</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
