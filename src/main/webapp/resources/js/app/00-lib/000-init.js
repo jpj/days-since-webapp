@@ -3,9 +3,11 @@
  * and open the template in the editor.
  */
 
+window.DaysSince = window.DaysSince || {};
+
 window.DaysSince = {
 	Collection: {},
-	Constant: {},
+	Constant: window.DaysSince.Constant,
 	Model: {},
 	Router: {},
 	Template: {},
