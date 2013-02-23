@@ -41,13 +41,9 @@
 	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
 		<property name="connectionFactories">
 			<list>
-<!--				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
-					<constructor-arg value="501778863200129"/>
-					<constructor-arg value="ce17f2d5f35f3f6119cf1163122ae13e"/>
-				</bean>-->
 				<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
-					<constructor-arg value="382315248529539"/>
-					<constructor-arg value="d7438ce3094c85be9c4aee0c6c4342b6"/>
+					<constructor-arg value="${facebook.appId}"/>
+					<constructor-arg value="${facebook.appSecret}"/>
 				</bean>
 			</list>
 		</property>
