@@ -1,3 +1,1 @@
-#!/bin/sh
-
-mvn -Pprod clean release:prepare && mvn -Pprod clean release:perform
+mvn -DignoreSnapshots=true -Pprod clean release:prepare && mvn -DignoreSnapshots=true -Pprod clean release:perform
